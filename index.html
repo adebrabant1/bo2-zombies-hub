@@ -1,101 +1,133 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Aether French, un hub francophone inspiré BO2 Zombies pour les guides, secrets, armes, atouts et outils Zombies." />
-  <title>Aether French — Zombies Hub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aether French | Zombies Hub</title>
   <link rel="stylesheet" href="css/main.css" />
+  <script src="js/data.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body>
-  <div class="boot-screen" id="bootScreen" aria-hidden="true">
-    <p class="boot-kicker">AETHER DATABASE</p>
-    <h1>ZOMBIES</h1>
-    <span>Chargement des archives...</span>
+  <div class="boot-screen" id="bootScreen">
+    <p>INITIALISATION AETHER DATABASE</p>
+    <strong>ZOMBIES</strong>
+    <button id="skipBoot" type="button">ENTRER</button>
   </div>
 
-  <div class="app-shell">
-    <div class="space-layer" aria-hidden="true">
-      <div class="starfield starfield-a"></div>
-      <div class="starfield starfield-b"></div>
-      <div class="sun-core"></div>
-      <div class="sun-flare"></div>
+  <div class="site-shell">
+    <canvas id="starsCanvas" class="stars-canvas"></canvas>
+    <canvas id="asteroidsCanvas" class="asteroids-canvas"></canvas>
+    <div class="sun"></div>
 
-      <div class="planet-wrap">
-        <div class="planet-orbit-glow"></div>
-        <div class="planet">
-          <div class="planet-map"></div>
-          <div class="planet-lava"></div>
-          <div class="planet-shade"></div>
-          <div class="planet-rim"></div>
-        </div>
+    <div class="planet-wrap">
+      <div class="planet">
+        <div class="planet-texture texture-a"></div>
+        <div class="planet-texture texture-b"></div>
+        <div class="planet-clouds"></div>
+        <div class="planet-shadow"></div>
       </div>
-
-      <div class="asteroid-field" id="asteroidField"></div>
-      <div class="dust-layer"></div>
-      <div class="scanlines"></div>
-      <div class="vignette"></div>
     </div>
 
-    <header class="hud-top">
-      <div class="brand-block">
-        <p class="brand-subtitle">ZOMBIES</p>
-        <h1>BLACK OPS <span>II</span></h1>
-      </div>
+    <aside class="side-panel">
+      <a class="brand" href="#accueil">
+        <span>ZOMBIES</span>
+        <small>BLACK OPS <b>II</b></small>
+      </a>
 
-      <div class="profile-card">
-        <div class="online-count"><strong>798</strong> EN LIGNE</div>
-        <div class="profile-name">Aether French</div>
-        <button class="audio-toggle" id="audioToggle" type="button" aria-label="Activer ou couper la musique">SON OFF</button>
-      </div>
-    </header>
-
-    <aside class="main-menu" aria-label="Navigation principale">
-      <button class="menu-item active" data-section="home">ACCUEIL</button>
-      <button class="menu-item" data-section="bo1">BLACK OPS</button>
-      <button class="menu-item" data-section="bo2">BLACK OPS II</button>
-      <button class="menu-item" data-section="bo3">BLACK OPS III</button>
-      <button class="menu-item" data-section="bo4">BLACK OPS 4</button>
-      <button class="menu-item" data-section="coldwar">COLD WAR</button>
-      <button class="menu-item" data-section="guides">GUIDES</button>
-      <button class="menu-item" data-section="eggs">EASTER EGGS</button>
-      <button class="menu-item" data-section="weapons">ARMES</button>
-      <button class="menu-item" data-section="perks">ATOUTS</button>
-      <button class="menu-item" data-section="tools">OUTILS</button>
-      <button class="menu-item" data-section="settings">PARAMÈTRES</button>
+      <nav class="main-menu" aria-label="Navigation principale">
+        <button class="menu-item active" data-section="accueil">Accueil</button>
+        <button class="menu-item" data-section="bo1">Black Ops</button>
+        <button class="menu-item" data-section="bo2">Black Ops II</button>
+        <button class="menu-item" data-section="bo3">Black Ops III</button>
+        <button class="menu-item" data-section="bo4">Black Ops 4</button>
+        <button class="menu-item" data-section="coldwar">Cold War</button>
+        <button class="menu-item" data-section="guides">Guides</button>
+        <button class="menu-item" data-section="eastereggs">Easter Eggs</button>
+        <button class="menu-item" data-section="armes">Armes</button>
+        <button class="menu-item" data-section="atouts">Atouts</button>
+        <button class="menu-item" data-section="outils">Outils</button>
+        <button class="menu-item" data-section="parametres">Paramètres</button>
+      </nav>
     </aside>
 
-    <main class="content-panel" id="contentPanel" tabindex="-1">
-      <section class="hero-copy" id="heroCopy">
-        <p class="eyebrow">BASE DE DONNÉES ZOMBIES</p>
-        <h2>Guides, secrets et outils pour BO1, BO2, BO3, BO4 et Cold War.</h2>
-        <p>
-          Retrouve les easter eggs, armes spéciales, bâtons élémentaires, plans, atouts,
-          emplacements importants et calculateurs utiles, dans une interface sombre inspirée du menu BO2 Zombies.
-        </p>
+    <header class="top-bar">
+      <div><span class="dot"></span><strong>798</strong> EN LIGNE</div>
+      <div>AETHER FRENCH</div>
+      <button id="audioToggle" class="hud-button" type="button">♪</button>
+      <button id="themeToggle" class="hud-button" type="button">⚙</button>
+    </header>
+
+    <main class="content" id="content" tabindex="-1">
+      <section id="homeView" class="view">
+        <div class="intro">
+          <p>Aether Database</p>
+          <h1>Guides Zombies, secrets, armes et outils</h1>
+          <span>BO1 · BO2 · BO3 · BO4 · Cold War</span>
+        </div>
+
+        <div class="cards">
+          <article class="card big">
+            <div class="fake-image ice"></div>
+            <p>Guide à la une</p>
+            <h2>Origins - Bâton de Glace</h2>
+            <span>Construction, amélioration, disques, cristaux et étapes importantes.</span>
+            <button class="link-button" data-section="guides">Voir le guide →</button>
+          </article>
+
+          <article class="card">
+            <div class="fake-image map"></div>
+            <p>Carte interactive</p>
+            <h2>Origins</h2>
+            <span>Atouts, pièces, boîtes, générateurs, pelles et secrets.</span>
+            <button class="link-button" data-section="bo2">Ouvrir la carte →</button>
+          </article>
+
+          <article class="card">
+            <div class="perk-row" id="perkRow"></div>
+            <p>Outil du jour</p>
+            <h2>Calculateur Gobblegum</h2>
+            <span>Prépare tes runs sans compte ni base de données.</span>
+            <button class="link-button" data-section="outils">Utiliser l’outil →</button>
+          </article>
+
+          <article class="card news-card">
+            <p>Dernières actualités</p>
+            <ul>
+              <li>Origins mis à jour <b>12/05/2026</b></li>
+              <li>Classement armes <b>10/05/2026</b></li>
+              <li>Cold War ajouté <b>08/05/2026</b></li>
+              <li>Cartes interactives <b>05/05/2026</b></li>
+            </ul>
+            <button class="link-button" data-section="guides">Voir les news →</button>
+          </article>
+        </div>
       </section>
 
-      <section class="cards-grid" id="cardsGrid" aria-label="Cartes principales"></section>
+      <section id="dynamicView" class="view" hidden>
+        <div class="intro compact">
+          <p id="sectionKicker">Database</p>
+          <h1 id="sectionTitle">Section</h1>
+          <span id="sectionText">Sélectionne une rubrique.</span>
+        </div>
+        <div id="filters" class="filters"></div>
+        <div id="grid" class="cards"></div>
+      </section>
     </main>
 
-    <footer class="hud-bottom">
-      <div><strong>ÉCHAP</strong> Retour</div>
-      <div>NAT : <strong class="green">OUVERT</strong></div>
-      <div>TYPE DE NAT : <strong class="orange">MODÉRÉ</strong></div>
-      <div>CONFIDENTIALITÉ DU GROUPE : <strong class="green">OUVERTE</strong></div>
-      <div><strong>F1</strong> Navigateur</div>
+    <footer class="bottom-hud">
+      <div><b>ÉCHAP</b><span>Retour</span></div>
+      <div>NAT : <b class="green">OUVERT</b> · TYPE DE NAT : <b>MODÉRÉ</b> · GROUPE : <b class="green">OUVERT</b></div>
+      <div><b>F1</b> Navigateur · <b>M</b> Menu · <b>S</b> Social</div>
     </footer>
   </div>
 
-  <audio id="menuMusic" loop preload="none">
+  <audio id="menuTheme" loop preload="metadata">
     <source src="assets/audio/menu-theme.mp3" type="audio/mpeg" />
+    <source src="assets/audio/menu-theme.flac" type="audio/flac" />
   </audio>
-
-  <audio id="hoverSound" preload="none">
+  <audio id="hoverSound" preload="metadata">
     <source src="assets/audio/hover.mp3" type="audio/mpeg" />
   </audio>
-
-  <script src="js/data.js"></script>
-  <script src="js/main.js"></script>
 </body>
 </html>
