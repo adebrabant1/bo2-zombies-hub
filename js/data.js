@@ -1,12 +1,129 @@
-const ZOMBIES_DATA = {
-  bo1: {title:"BLACK OPS",description:"Kino der Toten, Five, Ascension, Call of the Dead, Shangri-La et Moon.",cards:[["Kino der Toten","Plan, atouts, Pack-a-Punch, téléporteur et secrets."],["Ascension","Lander, Gersh Device, singes, Easter Egg et astuces."],["Moon","Wave Gun, excavateurs, hacker et gros secret."],["Call of the Dead","Scavenger, George Romero, radios et étapes principales."]]},
-  bo2: {title:"BLACK OPS II",description:"TranZit, Nuketown, Die Rise, Mob of the Dead, Buried et Origins.",cards:[["Origins","Bâtons élémentaires, générateurs, robots, pelles, disques et Easter Egg."],["Die Rise","Sliquifier, pièces, ascenseurs, atouts et stratégie."],["Mob of the Dead","Blundergat, Acid Gat, Golden Spork, avion et pont."],["Buried","Paralyzer, Leroy, banque, labyrinthe, Time Bomb et secrets."],["TranZit","Bus, Jet Gun, turbine, Avogadro et raccourcis."],["Nuketown Zombies","Spawns aléatoires, compte à rebours et stratégie manches."]]},
-  bo3: {title:"BLACK OPS III",description:"Shadows of Evil, The Giant, Der Eisendrache, Zetsubou, Gorod Krovi et Revelations.",cards:[["Der Eisendrache","Arcs élémentaires, Ragnarok DG-4 et Easter Egg."],["Shadows of Evil","Épée, Apothicon Servant, rituels et tram."],["Revelations","Secrets, masques, Keeper Protector et boss final."],["Zombies Chronicles","Guides remasterisés pour les maps classiques."]]},
-  bo4: {title:"BLACK OPS 4",description:"Voyage of Despair, IX, Blood of the Dead, Classified et autres maps.",cards:[["IX","Death of Orion, challenges, temples et boss."],["Blood of the Dead","Spectral Shield, Hell's Retriever et Magmagat."],["Classified","Winters Howl, DEFCON et secrets."],["Ancient Evil","Gantelets, Pegasus et Easter Egg."]]},
-  coldwar: {title:"COLD WAR",description:"Die Maschine, Firebase Z, Mauer der Toten, Forsaken et Outbreak.",cards:[["Die Maschine","D.I.E. Shockwave, upgrades, Aether et boss."],["Firebase Z","R.A.I. K-84, défense, Mimics et Easter Egg."],["Mauer der Toten","CRBR-S, Klaus, trains et étapes."],["Outbreak","Objectifs, régions, coffres, Orda et secrets."]]}
-};
-const GUIDE_STEPS = {
-  "origins-ice-staff": {title:"Origins - Bâton de Glace",steps:["Récupérer le disque bleu près du générateur 2.","Trouver les 3 pièces du bâton en creusant quand il neige.","Prendre le gramophone et le disque noir pour accéder au Crazy Place.","Récupérer le cristal bleu, construire le bâton puis lancer l'amélioration.","Résoudre les symboles, tirer sur les pierres tombales et charger le bâton."]},
-  "origins-map": {title:"Carte interactive Origins",steps:["Version prête pour ajouter une image de map.","On placera les points cliquables : atouts, générateurs, pelles, boîtes, disques et robots."]},
-  "calculator": {title:"Calculateur Zombies",steps:["Déjà intégré dans la page Outils.","Tu peux entrer une manche et un nombre de joueurs pour obtenir une estimation simple."]}
+window.ZOMBIES_DATA = {
+  bo1: {
+    kicker: "Black Ops",
+    title: "Black Ops Zombies",
+    text: "Kino, Five, Ascension, Call of the Dead, Shangri-La et Moon.",
+    filters: ["Toutes", "Map", "Secret", "Wonder Weapon"],
+    items: [
+      ["Kino der Toten", "Map", "Atouts, armes murales, boîte mystère et stratégie hautes manches."],
+      ["Ascension", "Secret", "Étapes principales, monkeys, Gersh Device et pièges."],
+      ["Moon", "Secret", "Cryogenic Slumber Party, excavators et téléportation."],
+      ["Thundergun", "Wonder Weapon", "Utilisation optimale et maps concernées."]
+    ]
+  },
+  bo2: {
+    kicker: "Black Ops II",
+    title: "Black Ops II Zombies",
+    text: "TranZit, Die Rise, Mob of the Dead, Buried et Origins.",
+    filters: ["Toutes", "Origins", "Die Rise", "Mob", "Buried", "TranZit"],
+    items: [
+      ["Origins - Bâtons élémentaires", "Origins", "Feu, glace, foudre et vent : construction et amélioration."],
+      ["Die Rise - Sliquifier", "Die Rise", "Toutes les pièces, tables de craft et emplacements."],
+      ["Mob - Blundergat", "Mob", "Acid Gat, Hell's Retriever, avion et Golden Spork."],
+      ["Buried - Paralyzer", "Buried", "Leroy, labyrinthe, banque, casier d'arme et secrets."],
+      ["TranZit - Jet Gun", "TranZit", "Pièces, bus, turbine et Pack-a-Punch."]
+    ]
+  },
+  bo3: {
+    kicker: "Black Ops III",
+    title: "Black Ops III Zombies",
+    text: "Shadows of Evil, Der Eisendrache, Zetsubou, Gorod Krovi et Revelations.",
+    filters: ["Toutes", "Map", "Arcs", "Gobblegum"],
+    items: [
+      ["Der Eisendrache - Arcs", "Arcs", "Loup, éclair, feu et void avec étapes détaillées."],
+      ["Shadows of Evil", "Map", "Épée, Apothicon Servant, rituels et Pack-a-Punch."],
+      ["GobbleGums utiles", "Gobblegum", "Sélection des meilleurs GobbleGums par objectif."]
+    ]
+  },
+  bo4: {
+    kicker: "Black Ops 4",
+    title: "Black Ops 4 Zombies",
+    text: "Voyage of Despair, IX, Blood of the Dead, Classified et plus.",
+    filters: ["Toutes", "Chaos", "Aether"],
+    items: [
+      ["IX", "Chaos", "Épreuves, champions, Pack-a-Punch et Kraken."],
+      ["Blood of the Dead", "Aether", "Bouclier, Spoon, Magmagat et secret principal."]
+    ]
+  },
+  coldwar: {
+    kicker: "Cold War",
+    title: "Cold War Zombies",
+    text: "Die Maschine, Firebase Z, Mauer der Toten, Forsaken et Outbreak.",
+    filters: ["Toutes", "Round Based", "Outbreak", "Wonder Weapon"],
+    items: [
+      ["Die Maschine", "Round Based", "D.I.E Shockwave, éther noir, cristaux et améliorations."],
+      ["Mauer der Toten", "Wonder Weapon", "CRBR-S, Klaus et étapes principales."],
+      ["Outbreak", "Outbreak", "Objectifs, coffres, secrets et optimisation."]
+    ]
+  },
+  guides: {
+    kicker: "Guides",
+    title: "Guides détaillés",
+    text: "Tutoriels pas à pas, pensés pour être ouverts pendant une partie.",
+    filters: ["Toutes", "BO2", "BO3", "Cold War"],
+    items: [
+      ["Origins - Bâton de Glace", "BO2", "Disque bleu, tunnel glace, cristaux, énigmes et amélioration."],
+      ["Origins - Bâton de Feu", "BO2", "Disque rouge, avion lumineux, générateur 6 et torches."],
+      ["Die Rise - Sliquifier", "BO2", "Plan des pièces et ordre de récupération."],
+      ["Mob - Hell's Retriever", "BO2", "Chiens, pont, tomahawk et amélioration."]
+    ]
+  },
+  eastereggs: {
+    kicker: "Secrets",
+    title: "Easter Eggs",
+    text: "Secrets principaux et secondaires classés par jeu et par map.",
+    filters: ["Toutes", "BO2", "Solo", "Coop"],
+    items: [
+      ["Little Lost Girl", "BO2", "Secret principal d'Origins."],
+      ["Mined Games", "BO2", "Secret principal de Buried."],
+      ["Pop Goes the Weasel", "BO2", "Secret principal de Mob of the Dead."]
+    ]
+  },
+  armes: {
+    kicker: "Armurerie",
+    title: "Armes et Wonder Weapons",
+    text: "Armes importantes, versions améliorées et usages.",
+    filters: ["Toutes", "Wonder Weapon", "Pack-a-Punch", "BO2"],
+    items: [
+      ["Ray Gun Mark II", "Wonder Weapon", "Dégâts, disponibilité et conseils."],
+      ["Sliquifier", "BO2", "Arme spéciale de Die Rise."],
+      ["Paralyzer", "BO2", "Arme spéciale de Buried."],
+      ["Boomhilda", "Pack-a-Punch", "Mauser amélioré sur Origins."]
+    ]
+  },
+  atouts: {
+    kicker: "Perks",
+    title: "Atouts Zombies",
+    text: "Juggernog, Speed Cola, Double Tap, Stamin-Up, PHD et tous les autres.",
+    filters: ["Toutes", "Classique", "BO2"],
+    items: [
+      ["Juggernog", "Classique", "Augmente la survie, priorité absolue sur la plupart des maps."],
+      ["Speed Cola", "Classique", "Recharge plus rapide, très utile en hautes manches."],
+      ["Double Tap II", "BO2", "Augmente fortement les dégâts effectifs."],
+      ["Stamin-Up", "Classique", "Mobilité améliorée, très fort sur grandes maps."]
+    ]
+  },
+  outils: {
+    kicker: "Outils",
+    title: "Outils pratiques",
+    text: "Calculateurs, simulateurs et aides rapides pour tes parties.",
+    filters: ["Toutes", "Calculateur", "Simulateur", "Carte"],
+    items: [
+      ["Calculateur de manches", "Calculateur", "Estime temps, zombies et difficulté."],
+      ["Calculateur Gobblegum", "Calculateur", "Prépare ton pack selon ton objectif."],
+      ["Mystery Box Simulator", "Simulateur", "Animation et tirage d'arme aléatoire."],
+      ["Carte interactive", "Carte", "Filtres par objets, atouts et secrets."]
+    ]
+  },
+  parametres: {
+    kicker: "Système",
+    title: "Paramètres",
+    text: "Réglages locaux sans compte utilisateur ni base de données.",
+    filters: ["Local"],
+    items: [
+      ["Audio", "Local", "Active ou coupe les musiques depuis le bouton en haut à droite."],
+      ["Dark Aether", "Local", "Change l'ambiance en violet/bleu."],
+      ["GitHub Pages", "Local", "Statistiques visibles via GitHub ou service externe sans compte visiteur."]
+    ]
+  }
 };
